@@ -1,0 +1,32 @@
+server:
+    port : 9595
+
+spring:
+  application:
+    name:  REVIEW-MS
+  datasource:
+    url: jdbc:mysql://localhost:3306/review
+    username: root
+    password: myadmin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+
+eureka:
+    instance:
+         prefer-ip-address: true
+    client:
+      register-with-eureka: true
+      fetch-registry: true
+    serviceUrl:
+           defaultZone:  http://localhost:8761/eureka
+
+
+rabitmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest

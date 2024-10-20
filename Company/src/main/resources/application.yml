@@ -1,0 +1,29 @@
+spring:
+   application:
+         name:   COMPANY-MS
+   data:
+      mongodb:
+              uri :  mongodb://localhost:27017
+              database : CompanyMs
+
+server:
+    port : 9393
+
+
+
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+
+rabitmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+

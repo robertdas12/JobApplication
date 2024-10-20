@@ -1,0 +1,55 @@
+server:
+  port: 9292
+
+spring:
+  application:
+    name: JOB-MS
+  datasource:
+    url: jdbc:mysql://localhost:3306/jobms  # Update to point to MySQL container using service name if needed
+    username: root
+    password: myadmin  # Consider using environment variables for security
+  jpa:
+    hibernate:
+      ddl-auto: update  # Use with caution in production environments
+    show-sql: true
+  config:
+    import: optional:configserver:http://localhost:9696
+  profiles:
+    active: dev
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      jobCompanyReviewCB:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedMinimumNumberOfCallsInHalfOpenState: 10
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 50
+        automatic-transition-from-open-to-halfopen-enabled: true
+        sliding-window-type: count_based
+        max-attempt: 5
+        wait-duration: 2s
+
+management:
+  health:
+    circuit breaker:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always
+
+
+
